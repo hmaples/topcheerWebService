@@ -16,10 +16,10 @@
 		update user_info set pass_word = #{pass_word}
 		where user_name = #{user_name}
 	</update>
-	<delete id="delUser">
+	<delete id="delUser" parameterType="com.topcheer.WebService.framework.dto.User">
 		delete from user_info where user_name = #{user_name}
 	</delete>
-	<select id="queryUser">
+	<select id="queryUser" parameterType="com.topcheer.WebService.framework.dto.User" resultType="com.topcheer.WebService.framework.dto.User">
 		select user_name,pass_word from user_info where user_name = #{user_name}
 	</select>
 </mapper>
