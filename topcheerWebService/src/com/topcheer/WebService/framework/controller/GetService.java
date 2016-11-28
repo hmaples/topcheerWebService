@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.topcheer.WebService.framework.dao.BaseDao;
 import com.topcheer.WebService.framework.dto.User;
 import com.topcheer.WebService.framework.service.UserService;
 
@@ -19,6 +21,9 @@ public class GetService {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BaseDao baseDao;
 
 	public List<User> list = null;
 
@@ -30,7 +35,7 @@ public class GetService {
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	@ResponseBody
 	public String index() {
-		list = userService.getUserList();
+		list = baseDao.selectListBySqlId("topcheer.getUserList", null);
 		return list.get(0).getUser_name() + list.get(0).getPass_word();
 	}
 
