@@ -1,6 +1,9 @@
 package com.topcheer.WebService.framework.controller;
 
 import java.util.List;
+
+import net.sf.json.JSONArray;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +27,12 @@ public class GetService {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/get", method = RequestMethod.GET)
+	@ResponseBody
 	public String index() {
 		list = userService.getUserList();
-		return "/hello";
+		return list.get(0).getUser_name() + list.get(0).getPass_word();
 	}
-
 
 	/**
 	 * 新增保存用户
@@ -37,8 +40,13 @@ public class GetService {
 	 * @param user
 	 * @return ModelAndView
 	 */
-	@RequestMapping(method = RequestMethod.POST)
-	public String addUser(User user) {
+	@RequestMapping(value = "/post/{user_name}/{pass_word}", method = RequestMethod.POST)
+	@ResponseBody
+	public String addUser(@PathVariable("user_name") String user_name,
+			@PathVariable("pass_word") String pass_word) {
+		User user = new User();
+		user.setUser_name(user_name);
+		user.setPass_word(pass_word);
 		userService.insertUser(user);
 		return "/hello";
 	}
@@ -49,7 +57,8 @@ public class GetService {
 	 * @param id
 	 * @return ModelAndView
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "{user_name}")
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "/get/{user_name}")
 	public String viewUser(@PathVariable("user_name") String user_name) {
 		User user = new User();
 		user.setUser_name(user_name);
@@ -63,21 +72,23 @@ public class GetService {
 	 * @param id
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.DELETE, value = "{user_name}")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/delete/{user_name}")
 	public String deleteUser(@PathVariable("user_name") String user_name) {
 		User user = new User();
 		user.setUser_name(user_name);
 		userService.delUser(user);
 		return "success";
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.PUT,value = "{user_name}")
-	public String putUser(@PathVariable("user_name") String user_name){
+	@RequestMapping(method = RequestMethod.PUT, value = "/put/{user_name}/{pass_word}")
+	public String putUser(@PathVariable("user_name") String user_name,
+			@PathVariable("pass_word") String pass_word) {
 		User user = new User();
 		user.setUser_name(user_name);
+		user.setPass_word(pass_word);
 		userService.updateUser(user);
-		return "/hello";
+		return "success";
 	}
 
 }

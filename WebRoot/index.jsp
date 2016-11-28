@@ -21,10 +21,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="users" method="post">
-    	<input type="text" name="user.user_name" value="hmm">
-    	<input type="text" name="user.pass_word" value="hmm">
-    	<input type="submit" value="提交">
+  	<!-- put请求 -->
+    <form action="users/put/hmaple1/hmaple2" method="post">
+    	<!--<input type="text" name="user_name" value="hmm">
+    	<input type="text" name="pass_word" value="hmm">
+    	-->
+    	<input type="hidden" name="_method" value="put">
+    	<input type="submit" value="put提交">
     </form>
+    
+    <!-- post请求 -->
+    <form action="users/post/hmaple3/hmaple3" method="post">
+    	<!--<input type="text" name="user_name" value="hmm">
+    	<input type="text" name="pass_word" value="hmm">
+    	-->
+    	<input type="hidden" name="_method" value="post">
+    	<input type="submit" value="post提交">
+    </form>
+    
+    <!-- delete请求 -->
+    <form action="users/delete/hmaple1" method="post">
+    	<!--<input type="text" name="user_name" value="hmm">
+    	<input type="text" name="pass_word" value="hmm">
+    	-->
+    	<input type="hidden" name="_method" value="delete">
+    	<input type="submit" value="delete提交">
+    </form>
+    
+    <!-- get请求 http://localhost:8080/topcheerWebService/users/get/hmaple2 -->
   </body>
 </html>
