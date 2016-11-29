@@ -19,7 +19,7 @@
 	<delete id="delUser" parameterType="com.topcheer.restful.testapp.dto.User">
 		delete from user_info where user_name = #{user_name}
 	</delete>
-	<select id="queryUser" parameterType="com.topcheer.restful.testapp.dto.User" resultType="com.topcheer.WebService.framework.dto.User">
+	<select id="queryUser" parameterType="com.topcheer.restful.testapp.dto.User" resultType="com.topcheer.restful.testapp.dto.User">
 		select user_name,pass_word from user_info where user_name = #{user_name}
 	</select>
 </mapper>
