@@ -1,30 +1,22 @@
-package com.topcheer.WebService.framework.controller;
+package com.topcheer.restful.testapp.service;
 
 import java.util.List;
 
-import net.sf.json.JSONArray;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.topcheer.WebService.framework.dao.BaseDao;
-import com.topcheer.WebService.framework.dto.User;
-import com.topcheer.WebService.framework.service.UserService;
+import com.topcheer.restful.framework.controller.BaseService;
+import com.topcheer.restful.testapp.dto.User;
 
 @Controller
 @RequestMapping("/users")
-public class GetService {
+public class GetService extends BaseService {
 
-	@Autowired
-	private UserService userService;
 	
-	@Autowired
-	private BaseDao baseDao;
-
 	public List<User> list = null;
 
 	/**
@@ -35,7 +27,7 @@ public class GetService {
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	@ResponseBody
 	public String index() {
-		list = baseDao.selectListBySqlId("topcheer.getUserList", null);
+		list = super.selectListObject("topcheer.getUserList", null);
 		return list.get(0).getUser_name() + list.get(0).getPass_word();
 	}
 
@@ -52,7 +44,8 @@ public class GetService {
 		User user = new User();
 		user.setUser_name(user_name);
 		user.setPass_word(pass_word);
-		userService.insertUser(user);
+		super.insert("topcheer.insertUser", user);
+		
 		return "/hello";
 	}
 
@@ -67,7 +60,7 @@ public class GetService {
 	public String viewUser(@PathVariable("user_name") String user_name) {
 		User user = new User();
 		user.setUser_name(user_name);
-		user = userService.getUserInfo(user);
+		user =  super.selectObject("topcheer.queryUser", user);
 		return "/hello";
 	}
 
@@ -81,7 +74,7 @@ public class GetService {
 	public String deleteUser(@PathVariable("user_name") String user_name) {
 		User user = new User();
 		user.setUser_name(user_name);
-		userService.delUser(user);
+		super.del("topcheer.delUser", user);
 		return "success";
 	}
 
@@ -92,7 +85,7 @@ public class GetService {
 		User user = new User();
 		user.setUser_name(user_name);
 		user.setPass_word(pass_word);
-		userService.updateUser(user);
+		super.update("topcheer.updateUser", user);
 		return "success";
 	}
 

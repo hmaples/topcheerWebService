@@ -1,4 +1,6 @@
-package com.topcheer.WebService.framework.dto;
+package com.topcheer.restful.testapp.dto;
+
+import com.topcheer.restful.framework.dto.BaseDto;
 
 public class User extends BaseDto{
 
