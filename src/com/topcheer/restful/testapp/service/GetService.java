@@ -24,7 +24,7 @@ public class GetService extends BaseService {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
+	@RequestMapping(value = "/get", method = RequestMethod.GET,produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String index() {
 		list = super.selectListObject("topcheer.getUserList", null);
@@ -37,7 +37,7 @@ public class GetService extends BaseService {
 	 * @param user
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value = "/post/{user_name}/{pass_word}", method = RequestMethod.POST)
+	@RequestMapping(value = "/post/{user_name}/{pass_word}", method = RequestMethod.POST,produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String addUser(@PathVariable("user_name") String user_name,
 			@PathVariable("pass_word") String pass_word) {
@@ -45,8 +45,7 @@ public class GetService extends BaseService {
 		user.setUser_name(user_name);
 		user.setPass_word(pass_word);
 		super.insert("topcheer.insertUser", user);
-		
-		return "/hello";
+		return "{result:success}";
 	}
 
 	/**
@@ -56,12 +55,12 @@ public class GetService extends BaseService {
 	 * @return ModelAndView
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value = "/get/{user_name}")
-	public String viewUser(@PathVariable("user_name") String user_name) {
+	@RequestMapping(method = RequestMethod.GET, value = "/get/{user_name}",produces="application/json;charset=UTF-8")
+	public User viewUser(@PathVariable("user_name") String user_name) {
 		User user = new User();
 		user.setUser_name(user_name);
 		user =  super.selectObject("topcheer.queryUser", user);
-		return "/hello";
+		return user;
 	}
 
 	/**
@@ -70,23 +69,23 @@ public class GetService extends BaseService {
 	 * @param id
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.DELETE, value = "/delete/{user_name}")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/delete/{user_name}",produces="application/json;charset=UTF-8")
 	public String deleteUser(@PathVariable("user_name") String user_name) {
 		User user = new User();
 		user.setUser_name(user_name);
 		super.del("topcheer.delUser", user);
-		return "success";
+		return "{result:success}";
 	}
 
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.PUT, value = "/put/{user_name}/{pass_word}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/put/{user_name}/{pass_word}",produces="application/json;charset=UTF-8")
 	public String putUser(@PathVariable("user_name") String user_name,
 			@PathVariable("pass_word") String pass_word) {
 		User user = new User();
 		user.setUser_name(user_name);
 		user.setPass_word(pass_word);
 		super.update("topcheer.updateUser", user);
-		return "success";
+		return "{result:success}";
 	}
 
 }
