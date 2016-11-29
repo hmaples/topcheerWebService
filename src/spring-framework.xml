@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
@@ -15,14 +15,12 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<context:component-scan base-package="com.topcheer.WebService.framework.controller" >
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  
-	</context:component-scan> 
-	<context:component-scan base-package="com.topcheer.WebService.framework.service" />
-	<mvc:annotation-driven />
-	<mvc:default-servlet-handler />
-	
-	<!-- 数据库配置 -->
+    <context:property-placeholder location="classpath:db.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:log4j.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:info.properties" ignore-unresolvable="true"/>
+  
+  
+  	<!-- 数据库配置 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}"></property>
 		<property name="url" value="${jdbc.url}"></property>
@@ -38,44 +36,21 @@
 		<property name="minEvictableIdleTimeMillis" value="18000000" />
 		<property name="testOnBorrow" value="true" />
 	</bean>
-
-	<bean id="sqlsessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="mapperLocations" value="classpath:com/topcheer/WebService/framework/mapper/*.xml"></property>
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	
-	<!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="sqlSessionFactoryBeanName" value="sqlsessionFactory" />
-		<property name="basePackage" value="com.topcheer.test.dao" />
-	</bean>-->
-	
-	<bean id="baseDao" class="com.topcheer.WebService.framework.dao.BaseDao"  >
-		<property name="sqlSessionFactory" ref="sqlsessionFactory"></property>
-	</bean>
-	 
-	 
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
 	
 	<!-- 事务控制 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
+	
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="doBusiness" propagation="REQUIRED" read-only="false" rollback-for="Exception" />
 		</tx:attributes>
 	</tx:advice>
-	<aop:config>
-		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.topcheer.WebService.framework.service.*.*(..))" />
-		<aop:advisor pointcut-ref="transactionPointcut"
-			advice-ref="transactionAdvice" />
-	</aop:config>
-   
+	
+	<bean id="baseDao" class="com.topcheer.restful.framework.dao.MybatisBaseDao"  >
+		<property name="sqlSessionFactory" ref="sqlsessionFactory"></property>
+	</bean>
+	
 </beans>
