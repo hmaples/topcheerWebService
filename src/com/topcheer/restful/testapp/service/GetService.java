@@ -3,7 +3,6 @@ package com.topcheer.restful.testapp.service;
 import java.util.List;
 
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +44,7 @@ public class GetService extends BaseService {
 		User user = new User();
 		user.setUser_name(user_name);
 		user.setPass_word(pass_word);
-		super.insert("topcheer.insertUser", user);
+		super.insert4Object("topcheer.insertUser", user);
 		return "{result:success}";
 	}
 
@@ -74,7 +73,7 @@ public class GetService extends BaseService {
 	public String deleteUser(@PathVariable("user_name") String user_name) {
 		User user = new User();
 		user.setUser_name(user_name);
-		super.del("topcheer.delUser", user);
+		super.del4Object("topcheer.delUser", user);
 		return "{result:success}";
 	}
 
@@ -85,7 +84,7 @@ public class GetService extends BaseService {
 		User user = new User();
 		user.setUser_name(user_name);
 		user.setPass_word(pass_word);
-		super.update("topcheer.updateUser", user);
+		super.update4Object("topcheer.updateUser", user);
 		return "{result:success}";
 	}
 
