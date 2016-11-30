@@ -14,11 +14,11 @@ public class BaseService {
 	protected IDao baseDao;
 	
 	
-	public int insert(String sqlid, BaseDto value) {
+	public int insert4Object(String sqlid, BaseDto value) {
 		return baseDao.insert(sqlid, value);
 	}
 
-	public int insert(String sqlid, Map<String, Object> value) {
+	public int insert4Map(String sqlid, Map<String, Object> value) {
 		return baseDao.insert(sqlid, value);
 	}
 
@@ -26,39 +26,39 @@ public class BaseService {
 		return baseDao.selectObject(sqlId, param);
 	}
 
-	public  void del(String sqlId, BaseDto param) {
+	public  void del4Object(String sqlId, BaseDto param) {
 		baseDao.del(sqlId, param);
 
 	}
 
-	public void del(String sqlId, Map<String, Object> param) {
+	public void del4Map(String sqlId, Map<String, Object> param) {
 		baseDao.del(sqlId, param);
 
 	}
 
-	public int selectInt(String sqlId, BaseDto param) {
+	public int selectInt4Object(String sqlId, BaseDto param) {
 		return baseDao.selectInt(sqlId, param);
 	}
 
-	public  String selectString(String sqlId, BaseDto param) {
+	public  String selectString4Object(String sqlId, BaseDto param) {
 		return baseDao.selectString(sqlId, param);
 	}
 
-	public String selectString(String sqlId, Map<String, Object> param) {
+	public String selectString4Map(String sqlId, Map<String, Object> param) {
 		return baseDao.selectString(sqlId, param);
 	}
 
-	public void update(String sqlId, BaseDto param) {
+	public <T extends BaseDto> void update4Object(String sqlId, T param) {
 		baseDao.update(sqlId, param);
 
 	}
 
-	public void update(String sqlId, Map<String, Object> param) {
+	public void update4Map(String sqlId, Map<String, Object> param) {
 		baseDao.update(sqlId, param);
 
 	}
 
-	public int selectInt(String sqlId,  Map<String,Object> param) {
+	public int selectInt4Map(String sqlId,  Map<String,Object> param) {
 		return baseDao.selectInt(sqlId, param);
 	}
 
