@@ -15,7 +15,6 @@ public class MyFirstRestfulService extends BaseService {
 	@RequestMapping(value = "/hello", method = RequestMethod.GET,produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public Object HellowWord() {	
-		super.update4Object("", null);
-		return super.selectListObject("topcheer.getUserList", null);
+		return super.selectListObject("topcheer2.getUserList", null);
 	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="topcheer">
+<mapper namespace="topcheer2">
 	<select id="getUserList" resultType="com.topcheer.restful.myfirstrestfulapp.dto.User">
 		SELECT
 		user_name,
